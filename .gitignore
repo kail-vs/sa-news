@@ -1,0 +1,55 @@
+# -----------------------------
+# Operating System files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# IDEs / Editors
+# -----------------------------
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# -----------------------------
+# Node.js / JavaScript
+# -----------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.env
+*.venv
+env/
+venv/
+*.pkl
+
+# -----------------------------
+# Sensitive files
+# -----------------------------
+*.key
+*.pem
+*.crt
+*.env
+config.json
+config.py
+local.settings.json
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+
+# -----------------------------
+# Build files
+# -----------------------------
+build/
+out/
+coverage/
