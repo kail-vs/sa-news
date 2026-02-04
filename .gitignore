@@ -7,7 +7,7 @@ Thumbs.db
 # -----------------------------
 # IDEs / Editors
 # -----------------------------
-.vscode/
+
 .idea/
 *.sublime-workspace
 *.sublime-project
@@ -27,6 +27,7 @@ __pycache__/
 *.py[cod]
 *.env
 *.venv
+*.vscode
 env/
 venv/
 *.pkl

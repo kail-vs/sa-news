@@ -12,19 +12,26 @@ This is a **Azure Function** that collects news articles from free APIs (`NewsAP
 ## Folder Structure
 
 ```
-news_collector_project/
-├── NewsCollectorFunction/    # Azure Function
-│   ├── __init__.py           # Function entrypoint
-│   └── function.json         # Timer trigger config
-├── news_collector/           # Core code for collection
-│   ├── config.py
-│   ├── api_clients.py
-│   ├── state_manager.py
-│   ├── scheduler.py
-│   └── storage_manager.py
-├── host.json
-├── requirements.txt
-└── local.settings.json
+storage-account
+│
+├── state/
+│   ├── newsapi_state.json
+│   ├── newsdata_state.json
+│   └── newsdatahub_state.json
+│
+├── staging/
+│   ├── newsapi/
+│   │   └── 2026-02-04/
+│   │       └── 10-15.json
+│   ├── newsdata/
+│   └── newsdatahub/
+│
+└── main/
+    ├── newsapi/
+    │   └── 2026-02-04/
+    │       └── 10.json
+    ├── newsdata/
+    └── newsdatahub/
 ```
 
 ---
@@ -34,16 +41,12 @@ news_collector_project/
 1. **Azure Storage**: Create a storage account and 3 containers:
 
    * `staging` → temporary JSON storage
-   * `news-data` → hourly Parquet storage
+   * `main` → hourly Parquet storage
    * `state` → store per-API state
 
 2. **Environment Variables** (Azure Function App Settings):
 
 ```
-AZURE_BLOB_CONNECTION = <storage connection string>
-STAGING_CONTAINER = <staging container>
-DATA_CONTAINER = <news-data container>
-STATE_CONTAINER = <state container>
 NEWSAPI_KEY = <your key>
 NEWSDATA_KEY = <your key>
 NEWSDATAHUB_KEY = <your key>
@@ -53,6 +56,15 @@ NEWSDATAHUB_KEY = <your key>
 
 ```bash
 pip install -r requirements.txt
+```
+
+4. **Deployment**:
+
+```bash
+REM Login into your Azure account and select subscription
+az login 
+
+func azure functionapp publish fn-news-collector --python
 ```
 
 ---
