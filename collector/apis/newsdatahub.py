@@ -11,6 +11,8 @@ from shared.config import NEWSDATAHUB_KEY
 
 BASE_URL = "https://api.newsdatahub.com/v1/news"
 DAILY_LIMIT = 100
+PER_PAGE = 20
+
 
 def run_newsdatahub(now):
     state = load_state("newsdatahub")
@@ -21,12 +23,20 @@ def run_newsdatahub(now):
 
     try:
         headers = {"x-api-key": NEWSDATAHUB_KEY}
+
         params = {
-            "page": state["current_page"],
-            "per_page": 50
+            "per_page": PER_PAGE
         }
 
-        response = requests.get(BASE_URL, headers=headers, params=params, timeout=10)
+        if state.get("current_page"):
+            params["cursor"] = state["current_page"]
+
+        response = requests.get(
+            BASE_URL,
+            headers=headers,
+            params=params,
+            timeout=10
+        )
         response.raise_for_status()
         payload = response.json()
 
@@ -35,16 +45,19 @@ def run_newsdatahub(now):
             logging.info("NewsDataHub returned no data")
             return
 
+        next_cursor = payload.get("pagination", {}).get("next_cursor")
+        if next_cursor:
+            state["current_page"] = next_cursor
+
         ids = extract_ids(articles)
         overlap = overlap_ratio(ids, state["last_ids"])
 
-        if overlap > 0.7:
-            state["current_page"] += 1
-        else:
+        if overlap <= 0.7:
             state["last_ids"] = ids[:50]
 
         parquet_bytes = records_to_parquet_bytes(articles)
         if not parquet_bytes:
+            logging.warning("NewsDataHub parquet conversion returned empty bytes")
             return
 
         path = f"newsdatahub/{now:%Y-%m-%d}/{now:%H-%M}.parquet"

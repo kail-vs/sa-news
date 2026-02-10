@@ -13,7 +13,7 @@ blob_service = BlobServiceClient.from_connection_string(
 )
 
 def merge_hour(api_name, now):
-    merge_time = now - timedelta(hours=1)
+    merge_time = now.replace(minute=0, second=0, microsecond=0) - timedelta(hours=1)
 
     hour_prefix = (
         f"{api_name}/"
