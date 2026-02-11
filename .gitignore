@@ -54,3 +54,11 @@ local.settings.json
 build/
 out/
 coverage/
+
+# -----------------------------
+# Data files
+# -----------------------------
+deltatables/
+newsapi/
+newsdata/
+newsdatahub/
