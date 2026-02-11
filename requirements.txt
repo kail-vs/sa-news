@@ -1,0 +1,10 @@
+pyspark==3.5.0
+delta-spark==3.1.0
+pandas
+pyarrow
+fastparquet
+spacy
+scikit-learn
+tqdm
+pyyaml
+mlflow==2.12.1
