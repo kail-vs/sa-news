@@ -68,5 +68,14 @@ bronze/
 top20_csv/
 models/
 mlruns/
-ml/
 qdrant_storage/
+entity_daily/
+event_snapshot/
+search_index/
+topic_daily/
+topic_realtime/
+clusters/
+clusters_labeled/
+events/
+trend_timeseries/
+trending_clusters/
