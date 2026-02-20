@@ -69,3 +69,4 @@ top20_csv/
 models/
 mlruns/
 ml/
+qdrant_storage/
