@@ -10,7 +10,7 @@ def get_spark_session(app_name="SA-News"):
     builder = (
         SparkSession.builder
         .appName(app_name)
-        .master("local[*]")
+        # .master("local[*]")
 
         .config("spark.local.dir", "C:/spark-temp/local")
         .config("spark.sql.warehouse.dir", "C:/spark-temp/warehouse")
@@ -33,10 +33,6 @@ def get_spark_session(app_name="SA-News"):
         .config(
             "spark.hadoop.fs.file.impl",
             "org.apache.hadoop.fs.LocalFileSystem"
-        )
-        .config(
-            "spark.hadoop.fs.file.impl.disable.cache",
-            "true"
         )
     )
 
